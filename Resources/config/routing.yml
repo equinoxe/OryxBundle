@@ -1,0 +1,8 @@
+oryx_bundle_standalone:
+    pattern:  /editor/standalone
+    defaults: { _controller: OryxBundle:Default:standalone }
+    
+oryx_bundle_integrated:
+    pattern:  /editor/integrated
+    defaults: { _controller: OryxBundle:Default:integrated }
+    

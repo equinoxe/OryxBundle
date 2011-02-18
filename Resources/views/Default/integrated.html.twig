@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:b3mn="http://b3mn.org/2007/b3mn"
+    xmlns:ext="http://b3mn.org/2007/ext"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:atom="http://b3mn.org/2007/atom+xhtml"
+>
+
+<head profile="http://purl.org/NET/erdf/profile">
+    
+    <title>Flexiflow Modeler</title>
+
+    <script src="/bundles/oryx/js/prototype-1.5.1.js" type="text/javascript"></script>
+    
+    <script type="text/javascript" src="/vendor/extjs/adapter/ext/ext-base.js"></script> 
+    <script type="text/javascript" src="/vendor/extjs/ext-all.js"></script>
+    
+    <script src="/bundles/oryx/js/path_parser.js" type="text/javascript"></script>
+    <script src="/bundles/oryx/js/color-field.js" type="text/javascript"></script>
+    <script src="/bundles/oryx/languages/translation_de.js" type="text/javascript"></script>
+    <script src="/bundles/oryx/js/core.js" type="text/javascript"></script>
+    <script src="/bundles/oryx/profiles/bpmn2.0/bpmn2.0.js" type="text/javascript"></script>
+    
+    <link rel="stylesheet" type="text/css" href="/vendor/extjs/resources/css/ext-all.css" />    
+    <link rel="stylesheet" media="screen" href="/bundles/oryx/css/theme.css" type="text/css" />
+    
+
+    <link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" />
+    <link rel="schema.dcTerms" href="http://purl.org/dc/terms/" />
+    <link rel="schema.b3mn" href="http://b3mn.org" />
+    <link rel="schema.oryx" href="http://oryx-editor.org/" />
+    <link rel="schema.raziel" href="http://raziel.org/" />
+    
+    <script type='text/javascript'>
+        if (!ORYX) var ORYX = {};
+        if (!ORYX.CONFIG) ORYX.CONFIG = {};
+        ORYX.CONFIG.PLUGINS_CONFIG = '/bundles/oryx/profiles/bpmn2.0/bpmn2.0.xml';
+        ORYX.CONFIG.SSET = '/bundles/oryx/profiles/bpmn2.0/bpmn2.0.json';
+    </script>
+    
+    <script type='text/javascript'>
+        var oryx = null;
+        var center = null;
+        function onOryxResourcesLoaded(){
+            /*var oryx = new ORYX.Editor({
+                id: 'oryx-canvas123',
+                stencilset: {
+                    url: ORYX.CONFIG.SSET
+                }
+            });*/
+            if(Ext.getCmp('oryx-loading-panel')){
+                Ext.getCmp('oryx-loading-panel').hide()
+            }
+            center.add({
+                title: 'oryx',
+                layout: 'fit',
+                listeners: {
+                    render: function(elm) {
+                        console.log(elm.body.id);
+                        var oryx = new ORYX.Editor({
+                            id: elm.body.id,
+                            targetCt: elm,
+                            fullscreen: false,
+                            stencilset: {
+                                url: ORYX.CONFIG.SSET
+                            }
+                        });
+                    }
+                }
+                
+            });
+        }
+        Ext.onReady(function() {
+            center = new Ext.TabPanel({
+                region: 'center',
+                activeTab: 0,
+                items: [
+                    {
+                        title: 'Tab1',
+                        html: 'etwas'
+                    }
+                ]
+            });
+            var viewport = new Ext.Viewport({
+                layout: 'border',
+                items: [
+                    {
+                        region: 'north',
+                        height: 100,
+                        items: [
+                            {
+                                xtype: 'button',
+                                text: 'los',
+                                handler: function() {
+                                    center.add({
+                                        title: 'oryx',
+                                        layout: 'fit',
+                                        listeners: {
+                                            render: function(elm) {
+                                                console.log(elm.body.id);
+                                                var oryx = new ORYX.Editor({
+                                                    id: elm.body.id,
+                                                    targetCt: elm,
+                                                    fullscreen: false,
+                                                    stencilset: {
+                                                        url: ORYX.CONFIG.SSET
+                                                    }
+                                                });
+                                            }
+                                        }
+                                        
+                                    }).show();
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        region: 'west',
+                        html: 'west',
+                        width: 100
+                    },
+                    center
+                ]
+            });
+        });
+    </script>
+
+</head>
+
+<body style="overflow:hidden;">
+    <div class='processdata' style='display:none'></div>
+    <div class='oryx_xy'></div>
+</body>
+
+</html>
