@@ -2216,7 +2216,8 @@ ORYX.Plugins.Save = Clazz.extend({
             var ss 		= this.facade.getStencilSets();
             var source 	= ss[ss.keys()[0]].source().split('stencilsets')[1];
     
-            reqURI = '/backend/poem' + ORYX.CONFIG.ORYX_NEW_URL + "?stencilset=/stencilsets" + source ;		
+            //reqURI = '/backend/poem' + ORYX.CONFIG.ORYX_NEW_URL + "?stencilset=/stencilsets" + source ;
+            reqURI= ORYX.CONFIG.SAVEURL;
         }
 
 
@@ -2226,7 +2227,7 @@ ORYX.Plugins.Save = Clazz.extend({
         this.serializedDOM = Ext.encode(this.facade.getJSON());
         
         // Check if this is the NEW URL
-        if( reqURI.include( ORYX.CONFIG.ORYX_NEW_URL ) ){
+        if( reqURI.include( ORYX.CONFIG.ORYX_NEW_URL ) || ORYX.CONFIG.ALWAYS_NEW ){
             
             // Get the stencilset
             var ss = this.facade.getStencilSets().values()[0]
