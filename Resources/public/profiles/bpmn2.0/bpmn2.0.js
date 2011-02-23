@@ -6766,7 +6766,8 @@ ORYX.Plugins.Toolbar = Clazz.extend({
         ORYX.Log.trace("Creating a toolbar.")
         if(!this.toolbar){
             this.toolbar = new Ext.ux.SlicedToolbar({
-            height: 24
+            height: 24,
+            border: false
         });
                 var region = this.facade.addToRegion("north", this.toolbar, "Toolbar");
         }

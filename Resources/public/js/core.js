@@ -9544,13 +9544,13 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
     focus: function(){
         
         // Get a href
-        if (!this.headerA){
-            this.headerA = Ext.get("oryx_editor_header").child("a").dom
+   /*     if (!this.headerA){
+             this.headerA = Ext.get("oryx_editor_header").child("a").dom
         }
         
         // Focus it and blurs it
         this.headerA.focus();
-        this.headerA.blur();
+        this.headerA.blur();*/
     },
     
     update: function() {
@@ -10483,6 +10483,7 @@ ORYX.Editor = {
         // Config for the Ext.Viewport 
         var layout_config = {
             layout: 'border',
+            border: false,
             items: [
                 this.layout_regions.north,
                 this.layout_regions.east,
@@ -10505,7 +10506,7 @@ ORYX.Editor = {
         }
         
         //Generates the ORYX-Header
-        this._generateHeader();
+        //this._generateHeader();
         
         
         // Set the editor to the center, and refresh the size
@@ -10521,56 +10522,10 @@ ORYX.Editor = {
     },
     
     _generateHeader: function(){
-        
-        var headerPanel = new Ext.Panel({
-            height		: 30,
-            autoHeight	: false,
-            border		: false,
-            html		: "<div id='oryx_editor_header'><a href=\""+ORYX.CONFIG.WEB_URL+"\" target=\"_blank\"><img src='"+ORYX.PATH+"images/flexiflow.png' border=\"0\" /></a><div style='clear: both;'></div></div>" 
-        });
-
-        var maActive 	= ORYX.MashupAPI && ORYX.MashupAPI.isUsed;
-        var maKey		= maActive ? ORYX.MashupAPI.key : "";
-        var maCanRun	= maActive ? ORYX.MashupAPI.canRun : false;	
-        var maIsRemoteM	= maActive ? ORYX.MashupAPI.isModelRemote : true;	
-        
-        var maModelImage= maIsRemoteM ? "<img src='"+ORYX.PATH+"images/page_white_put.png'/>" : "";
-        var maModelAuthI= maActive ? "<span class='mashupinfo'><img src='"+ORYX.PATH+"images/" +( maCanRun ? "plugin_error" : "plugin") +".png'/>" + maModelImage + "</span>" : "";
-        
-        
-        // Callback if the user changes
-        var fn = function(val){
-            
-            var publicText = ORYX.I18N.Oryx.notLoggedOn;
-            var user = val && val.identifier && val.identifier != "public" ? decodeURI(val.identifier.gsub('"', "")).replace(/\+/g," ") : "";
-            
-            if( user.length <= 0 ){
-                user 	= 	publicText;
-            }
-            
-            var content = 	"<div id='oryx_editor_header'>" +
-                                "<a href=\""+ORYX.CONFIG.WEB_URL+"\" target=\"_blank\">" +
-                                    "<img src='"+ORYX.PATH+"images/flexiflow.png' border=\"0\" />" + 
-                                "</a>" + 
-                                "<span class='openid " + (publicText == user ? "not" : "") + "'>" + 
-                                    user + 
-                                    maModelAuthI + 
-                                "</span>" + 
-                                "<div style='clear: both;'/>" + 
-                            "</div>";
-            
-            if( headerPanel.body ){
-                headerPanel.body.dom.innerHTML = content;
-            } else {
-                headerPanel.html = content
-            }
-        };	
-        
-        ORYX.Editor.Cookie.onChange(fn);
-        fn(ORYX.Editor.Cookie.getParams());
+       
         
         // The oryx header
-        this.addToRegion("north", headerPanel );
+        //this.addToRegion("north", headerPanel );
     },
     
     /**
