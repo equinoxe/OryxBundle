@@ -2181,7 +2181,7 @@ ORYX.Plugins.Save = Clazz.extend({
         
     
     saveSynchronously: function(forceNew){
-            
+        
         // Reset changes
         this.changeDifference = 0;
         var reqURI ='';
@@ -2309,7 +2309,9 @@ ORYX.Plugins.Save = Clazz.extend({
     },
     
     sendSaveRequest: function(url, params, forceNew){
-
+        if (this.facade.getModelMetaData().saveParams) {
+            Ext.apply(params, this.facade.getModelMetaData().saveParams);
+        }
         // Send the request to the server.
         new Ajax.Request(url, {
                 method: 'POST',
