@@ -9296,6 +9296,7 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
     toJSON: function(){
         var json = {
             resourceId: this.resourceId,
+            id: this.id,
             properties: Ext.apply({}, this.properties, this.hiddenProperties).inject({}, function(props, prop){
               var key = prop[0];
               var value = prop[1];
@@ -9980,7 +9981,6 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
     getSVGRepresentation: function(escapeText) {
         // Get the serialized svg image source
         var svgClone = this.getRootNode().cloneNode(true);
-        
         this._removeInvisibleElements(svgClone);
         
         var x1, y1, x2, y2;
@@ -15885,12 +15885,13 @@ ORYX.Core.Edge = {
      */
     toJSON: function() {
         var json = arguments.callee.$.toJSON.apply(this, arguments);
-        
         if(this.getTarget()) {
             json.target = {
                 resourceId: this.getTarget().resourceId
             };
         }
+        // Add Id from the graphic.
+        json.id = this.id;
         
         return json;
     }
